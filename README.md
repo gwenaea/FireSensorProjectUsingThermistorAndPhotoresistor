@@ -23,6 +23,6 @@
 ### This github link contains the following:
 #### Code-for-Lab-Act-3_Bitanga-Olano-Paciente.ino
 #### Breadboard diagram. (https://bit.ly/laboratory-activity-3-bitanga-olano-paciente))
-#### Bitanga_Olano_Paciente_LAB_ACT_2_Working_with_Analog_Signals....
-#### Prompt for Lab Act 2_Bitanga, Olano, Paciente_BSCS-4C...
+#### Diagram-for-Lab-Act-3_Bitanga,Olano,Paciente
+#### Prompt-for-Lab-Act-3_Bitanga-Olano-Paciente
 #### Individual grades of the members
