@@ -13,10 +13,6 @@ const int BRIGHT_THRESHOLD = 220;
 const int BETA = 3950;               
 const int RESISTANCE = 10;            
 
-// --- Function Declarations ---
-float readTemperature();
-int readBrightness();
-int digitalBrightness(int brightness);
 
 void setup() {
   Serial.begin(9600);
@@ -24,7 +20,7 @@ void setup() {
   Serial.println("=== FIRE SENSOR SYSTEM STARTING ===");
   delay(1000);
   Serial.println("------------------------------------------------------------");
-  Serial.println("Temperature (°C)\tRaw Brightness\tDigital (1/0)\tStatus");
+  Serial.println("Temperature (°C)\tBrightness\t");
   Serial.println("------------------------------------------------------------");
 }
 
@@ -45,37 +41,30 @@ float readTemperature() {
 
 // Function to read photoresistor brightness value (analog)
 int readBrightness() {
-  return analogRead(PHOTORESISTOR);
+  int rawBrightness = analogRead(PHOTORESISTOR);
+  int Brightness =map(rawBrightness,0,1023,0,255);
+  return Brightness;
+  
+
 }
 
-// Function to convert analog brightness to digital HIGH/LOW
-int digitalBrightness(int brightness) {
-  if (brightness >= BRIGHT_THRESHOLD) {
-    return HIGH;  // bright → 1
-  } else {
-    return LOW;   // dark → 0
-  }
-}
 
 
 void loop() {
   // --- Sensor Readings ---
   float temperature = readTemperature();
-  int brightnessRaw = readBrightness();               // analog light reading (0–1023)
-  int brightnessDigital = digitalBrightness(brightnessRaw);  // HIGH or LOW (1 or 0)
+  int Brightness = readBrightness();               // analog light reading (0–1023)
 
  
   // --- Display Readings ---
   Serial.print(temperature, 2);      // print temperature with 2 decimal places
   Serial.print("°C\t\t");
-  Serial.print(brightnessRaw);       // print actual photoresistor value
-  Serial.print("\t\t");
-  Serial.print(brightnessDigital);   // print 1 or 0
-  Serial.print("\t\t");
-
+  Serial.print(Brightness); 
+  Serial.print("\t\t");      // print actual photoresistor value
+  
  // --- Fire Detection Logic ---
 
-  if (temperature >= TEMP_THRESHOLD && brightnessDigital == HIGH) {
+  if (temperature >= TEMP_THRESHOLD && Brightness >= BRIGHT_THRESHOLD) {
     Serial.println("FIRE DETECTED!");
     digitalWrite(ALERT, HIGH);
     delay(100);
@@ -87,3 +76,5 @@ void loop() {
     delay(500);
   }
 }
+
+// Code has been updated based on what has been checked during class. Thank you so much.
